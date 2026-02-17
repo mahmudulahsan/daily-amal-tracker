@@ -59,7 +59,7 @@ export default function WelcomeModal({ onCreateUser }: WelcomeModalProps) {
               type="text"
               value={name}
               onChange={(e) => setName(e.target.value)}
-              placeholder="যেমন: মাহি"
+              placeholder="যেমন: মাহী"
               autoFocus
               className="w-full px-4 py-3 rounded-xl bg-white/[0.05] border border-white/[0.1] text-white placeholder-slate-600 outline-none focus:border-amber-500/50 focus:bg-white/[0.07] transition-all text-sm"
             />

@@ -1,0 +1,36 @@
+{
+  "name": "দৈনিক রমজান ট্র্যাকার",
+  "short_name": "রমজান ট্র্যাকার",
+  "description": "বরকতময় রমজান মাসজুড়ে আপনার দৈনিক ইবাদাত অনুসরণ করুন — সালাত, কুরআন, দু'আ এবং আরও অনেক কিছু।",
+  "start_url": "/",
+  "display": "standalone",
+  "background_color": "#0b1120",
+  "theme_color": "#0b1120",
+  "orientation": "any",
+  "icons": [
+    {
+      "src": "/icons/icon-192.png",
+      "sizes": "192x192",
+      "type": "image/png",
+      "purpose": "any"
+    },
+    {
+      "src": "/icons/icon-512.png",
+      "sizes": "512x512",
+      "type": "image/png",
+      "purpose": "any"
+    },
+    {
+      "src": "/icons/icon-maskable-192.png",
+      "sizes": "192x192",
+      "type": "image/png",
+      "purpose": "maskable"
+    },
+    {
+      "src": "/icons/icon-maskable-512.png",
+      "sizes": "512x512",
+      "type": "image/png",
+      "purpose": "maskable"
+    }
+  ]
+}
