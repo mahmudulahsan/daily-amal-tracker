@@ -1,4 +1,4 @@
-/// Service Worker for দৈনিক রমজান ট্র্যাকার (Offline PWA)
+/// Service Worker for দৈনিক রমাদান ট্র্যাকার (Offline PWA)
 
 const CACHE_VERSION = "v1";
 const STATIC_CACHE = `static-${CACHE_VERSION}`;
@@ -109,7 +109,7 @@ async function networkFirst(request) {
       `<!DOCTYPE html>
 <html lang="bn">
 <head><meta charset="utf-8"><meta name="viewport" content="width=device-width,initial-scale=1">
-<title>অফলাইন — রমজান ট্র্যাকার</title>
+<title>অফলাইন — রমাদান ট্র্যাকার</title>
 <style>
   body{background:#0b1120;color:#e2e8f0;display:flex;align-items:center;justify-content:center;min-height:100vh;margin:0;font-family:system-ui,sans-serif;text-align:center}
   .c{max-width:320px}.e{font-size:3rem;margin-bottom:1rem}h1{font-size:1.25rem;margin:0 0 .5rem}p{color:#94a3b8;font-size:.875rem;margin:0}

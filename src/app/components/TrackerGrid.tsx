@@ -3,7 +3,7 @@
 import { TrackerData, IbadahItem } from "@/lib/types";
 import { RAMADAN_DAYS } from "@/lib/defaults";
 import { getColor, ColorValues } from "@/lib/colors";
-import { useMemo, useCallback } from "react";
+import { useMemo, useCallback, useState } from "react";
 
 /* ── Helpers ── */
 
@@ -52,8 +52,36 @@ interface TrackerGridProps {
   onToggle: (day: number, itemId: string) => void;
 }
 
+const COLLAPSED_KEY = "ramadan-tracker-collapsed";
+
+function loadCollapsed(): Record<string, boolean> {
+  if (typeof window === "undefined") return {};
+  try {
+    const stored = localStorage.getItem(COLLAPSED_KEY);
+    return stored ? JSON.parse(stored) : {};
+  } catch {
+    return {};
+  }
+}
+
+function saveCollapsed(collapsed: Record<string, boolean>) {
+  if (typeof window === "undefined") return;
+  try {
+    localStorage.setItem(COLLAPSED_KEY, JSON.stringify(collapsed));
+  } catch {}
+}
+
 export default function TrackerGrid({ data, onToggle }: TrackerGridProps) {
   const days = Array.from({ length: RAMADAN_DAYS }, (_, i) => i + 1);
+  const [collapsed, setCollapsed] = useState<Record<string, boolean>>(loadCollapsed);
+
+  const toggleCollapse = useCallback((categoryId: string) => {
+    setCollapsed((prev) => {
+      const next = { ...prev, [categoryId]: !prev[categoryId] };
+      saveCollapsed(next);
+      return next;
+    });
+  }, []);
 
   const categoryTrees = useMemo(() => {
     return data.categories.map((category) => ({
@@ -177,6 +205,7 @@ export default function TrackerGrid({ data, onToggle }: TrackerGridProps) {
               return (
                 <CategorySection
                   key={category.id}
+                  categoryId={category.id}
                   categoryName={category.name}
                   color={color}
                   categoryPercent={categoryPercent}
@@ -184,6 +213,8 @@ export default function TrackerGrid({ data, onToggle }: TrackerGridProps) {
                   days={days}
                   isChecked={isChecked}
                   onToggle={onToggle}
+                  isCollapsed={!!collapsed[category.id]}
+                  onToggleCollapse={toggleCollapse}
                 />
               );
             })}
@@ -197,6 +228,7 @@ export default function TrackerGrid({ data, onToggle }: TrackerGridProps) {
 /* ── Category Section ── */
 
 interface CategorySectionProps {
+  categoryId: string;
   categoryName: string;
   color: ColorValues;
   categoryPercent: number;
@@ -204,9 +236,12 @@ interface CategorySectionProps {
   days: number[];
   isChecked: (day: number, itemId: string) => boolean;
   onToggle: (day: number, itemId: string) => void;
+  isCollapsed: boolean;
+  onToggleCollapse: (categoryId: string) => void;
 }
 
 function CategorySection({
+  categoryId,
   categoryName,
   color,
   categoryPercent,
@@ -214,6 +249,8 @@ function CategorySection({
   days,
   isChecked,
   onToggle,
+  isCollapsed,
+  onToggleCollapse,
 }: CategorySectionProps) {
   const flatList: {
     item: IbadahItem;
@@ -245,11 +282,30 @@ function CategorySection({
           className="sticky left-0 z-10"
           style={{ backgroundColor: color.light }}
         >
-          <div className="flex items-center gap-3 px-4 py-2.5">
+          <button
+            type="button"
+            onClick={() => onToggleCollapse(categoryId)}
+            className="w-full flex items-center gap-3 px-4 py-2.5 cursor-pointer text-left transition-opacity hover:opacity-90"
+            style={{ background: "none", border: "none" }}
+            aria-expanded={!isCollapsed}
+          >
             <div
-              className="w-1 h-5 rounded-full"
+              className="w-1 h-5 rounded-full shrink-0"
               style={{ backgroundColor: color.main }}
             />
+            <svg
+              className="w-3.5 h-3.5 shrink-0 transition-transform duration-200"
+              style={{
+                color: color.text,
+                transform: isCollapsed ? "rotate(-90deg)" : "rotate(0deg)",
+              }}
+              fill="none"
+              viewBox="0 0 24 24"
+              stroke="currentColor"
+              strokeWidth={2.5}
+            >
+              <path strokeLinecap="round" strokeLinejoin="round" d="M19 9l-7 7-7-7" />
+            </svg>
             <span
               className="text-sm font-semibold tracking-wide"
               style={{ color: color.text }}
@@ -266,12 +322,12 @@ function CategorySection({
             >
               {toBanglaNum(categoryPercent)}%
             </span>
-          </div>
+          </button>
         </td>
       </tr>
 
       {/* Item rows */}
-      {flatList.map(({ item, depth, isLast }, flatIdx) => {
+      {!isCollapsed && flatList.map(({ item, depth, isLast }, flatIdx) => {
         const hasChildren =
           depth === 0 &&
           tree.find((n) => n.item.id === item.id)?.children.length;

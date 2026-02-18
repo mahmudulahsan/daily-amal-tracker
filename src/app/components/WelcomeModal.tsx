@@ -39,7 +39,7 @@ export default function WelcomeModal({ onCreateUser }: WelcomeModalProps) {
               আসসালামু আলাইকুম!
             </h1>
             <p className="text-slate-400 text-sm">
-              দৈনিক রমজান ট্র্যাকারে আপনাকে স্বাগতম
+              দৈনিক রমাদান ট্র্যাকারে আপনাকে স্বাগতম
             </p>
             <p className="text-slate-500 text-xs mt-2 italic">
               &ldquo;আল্লাহর কাছে সবচেয়ে প্রিয় আমল হলো — যা নিয়মিত করা হয়, যদিও তা অল্প হয়।&rdquo;

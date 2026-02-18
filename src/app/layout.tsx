@@ -10,14 +10,14 @@ const hindSiliguri = Hind_Siliguri({
 });
 
 export const metadata: Metadata = {
-  title: "দৈনিক রমজান ট্র্যাকার",
+  title: "দৈনিক রমাদান ট্র্যাকার",
   description:
-    "বরকতময় রমজান মাসজুড়ে আপনার দৈনিক ইবাদাত অনুসরণ করুন — সালাত, কুরআন, দু'আ এবং আরও অনেক কিছু।",
+    "বরকতময় রমাদান মাসজুড়ে আপনার দৈনিক ইবাদাত অনুসরণ করুন — সালাত, কুরআন, দু'আ এবং আরও অনেক কিছু।",
   manifest: "/manifest.json",
   appleWebApp: {
     capable: true,
     statusBarStyle: "black-translucent",
-    title: "রমজান ট্র্যাকার",
+    title: "রমাদান ট্র্যাকার",
   },
   other: {
     "mobile-web-app-capable": "yes",

@@ -161,9 +161,17 @@ export default function UserPanel({
         onChange={handleFileChange}
       />
 
+      {/* Backdrop (mobile only) */}
+      {isOpen && (
+        <div
+          className="fixed inset-0 bg-black/40 z-40 sm:hidden"
+          onClick={() => setIsOpen(false)}
+        />
+      )}
+
       {/* Dropdown panel */}
       {isOpen && (
-        <div className="absolute right-0 top-full mt-2 w-72 bg-[#1a2235] rounded-xl border border-white/[0.08] shadow-2xl overflow-hidden z-50">
+        <div className="fixed left-3 right-3 bottom-3 sm:absolute sm:left-auto sm:right-0 sm:bottom-auto sm:top-full sm:mt-2 w-auto sm:w-72 bg-[#1a2235] rounded-xl border border-white/[0.08] shadow-2xl overflow-hidden z-50 max-h-[80vh] overflow-y-auto">
           {/* Current user */}
           <div className="px-4 py-3 border-b border-white/[0.06]">
             <div className="flex items-center gap-2">

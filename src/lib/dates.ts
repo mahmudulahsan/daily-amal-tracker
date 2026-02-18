@@ -55,7 +55,7 @@ export function getHijriDateBn(date: Date): string {
       year: "numeric",
       weekday: undefined,
     });
-    return formatter.format(date);
+    return formatter.format(date).replace("রমজান", "রমাদান");
   } catch {
     // Fallback if Intl doesn't support islamic calendar
     return "";

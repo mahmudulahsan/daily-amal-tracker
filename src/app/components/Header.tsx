@@ -82,7 +82,7 @@ export default function Header({
             </div>
             <div>
               <h1 className="text-xl sm:text-2xl font-bold text-white tracking-tight">
-                দৈনিক রমজান ট্র্যাকার
+                দৈনিক রমাদান ট্র্যাকার
               </h1>
               <p className="text-sm text-slate-400 mt-0.5 italic">
                 &ldquo;আল্লাহর কাছে সবচেয়ে প্রিয় আমল হলো — যা নিয়মিত করা হয়, যদিও তা অল্প হয়।&rdquo;
