@@ -284,7 +284,7 @@ export default function CustomizeModal({
             return (
               <div
                 key={cat.id}
-                className="rounded-xl border overflow-hidden"
+                className="rounded-xl border"
                 style={{
                   borderColor: `${catColor.main}25`,
                   backgroundColor: `${catColor.main}06`,
@@ -324,7 +324,7 @@ export default function CustomizeModal({
                     />
                     {showColorPicker === cat.id && (
                       <div
-                        className="absolute top-7 left-0 z-50 p-2 rounded-lg bg-[#1e293b] border border-white/10 shadow-xl grid grid-cols-6 gap-1.5"
+                        className="absolute top-7 left-0 z-50 p-2 rounded-lg bg-[#1e293b] border border-white/10 shadow-xl flex flex-wrap gap-1.5 w-[180px]"
                         onClick={(e) => e.stopPropagation()}
                       >
                         {availableColors.map((colorName) => {

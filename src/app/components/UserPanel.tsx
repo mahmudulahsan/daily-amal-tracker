@@ -64,6 +64,12 @@ export default function UserPanel({
     if (trimmed && trimmed !== activeUser.name) {
       updateUserName(activeUser.id, trimmed);
       onUserRenamed(trimmed);
+      // Sync to Supabase
+      fetch("/api/users", {
+        method: "POST",
+        headers: { "Content-Type": "application/json" },
+        body: JSON.stringify({ id: activeUser.id, name: trimmed }),
+      }).then((r) => r.json()).catch(() => {});
     }
     setIsEditing(false);
   };
@@ -107,6 +113,12 @@ export default function UserPanel({
       setNewUserName("");
       setShowNewUser(false);
       setIsOpen(false);
+      // Sync to Supabase
+      fetch("/api/users", {
+        method: "POST",
+        headers: { "Content-Type": "application/json" },
+        body: JSON.stringify({ id: user.id, name: trimmed }),
+      }).then((r) => r.json()).catch(() => {});
     }
   };
 
@@ -122,6 +134,12 @@ export default function UserPanel({
     }
     // Force re-render by closing and reopening
     setIsOpen(false);
+    // Sync to Supabase
+    fetch("/api/users", {
+      method: "DELETE",
+      headers: { "Content-Type": "application/json" },
+      body: JSON.stringify({ id: userId }),
+    }).then((r) => r.json()).catch(() => {});
   };
 
   return (

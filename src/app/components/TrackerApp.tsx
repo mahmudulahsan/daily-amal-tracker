@@ -50,6 +50,12 @@ export default function TrackerApp() {
     setActiveUser(user);
     setData(loadTrackerData(user.id));
     setShowWelcome(false);
+    // Sync to Supabase
+    fetch("/api/users", {
+      method: "POST",
+      headers: { "Content-Type": "application/json" },
+      body: JSON.stringify({ id: user.id, name }),
+    }).then((r) => r.json()).catch(() => {});
   }, []);
 
   const handleSwitchUser = useCallback(
